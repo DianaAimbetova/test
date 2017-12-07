@@ -19,7 +19,6 @@ public class Test {
         room2.add(l1);
         room2.add(l2);
         room3.add(l3);
-        room3.add(f3);
         Building building = new Building("Здание 1");
         building.addRoom(room1);
         building.addRoom(room2);

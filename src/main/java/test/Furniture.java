@@ -7,7 +7,6 @@ public class Furniture {
 
 
 	    public Furniture( String furnitureName, int furnitureSquare) {
-	       // this.furnitureType = furnitureType;
 	        this.furnitureName = furnitureName;
 	        this.furnitureSquare = furnitureSquare;
 	    }

@@ -17,11 +17,20 @@ public class Room {
 	    }
 
 	    public void add(Furniture furniture) {
-	        furnitures.add(furniture);
+	    	try {
+				furnitures.add(furniture);
+			}catch (NullPointerException  n){
+				System.out.println("index is out of range.");
+			}
+
 	    }
 	    
 	    public void add(Lamp lamp) {
+	    	try{
 	        lamps.add(lamp);
+		}catch (NullPointerException  n){
+		System.out.println("index is out of range.");
+	}
 	    }
 	    
 	    public String getRoomName() {
