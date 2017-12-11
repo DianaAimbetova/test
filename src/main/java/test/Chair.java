@@ -1,12 +1,12 @@
 package test;
 
-public class Furniture {
+public class Chair implements Furnitures {
 	
 	 private String furnitureName;
 	 private int furnitureSquare;
 
 
-	    public Furniture( String furnitureName, int furnitureSquare) {
+	    public Chair(String furnitureName, int furnitureSquare) {
 	        this.furnitureName = furnitureName;
 	        this.furnitureSquare = furnitureSquare;
 	    }

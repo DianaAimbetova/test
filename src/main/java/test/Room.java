@@ -10,7 +10,7 @@ public class Room {
 	static final int MAXLIGHT = 4000;
 	static final int MAXSQUAREPERCENT = 70;
 	static final int WINDOWLIGHT = 700;
-	    private List<Furniture> furnitures = new ArrayList<>();
+	    private List<Furnitures> furnitures = new ArrayList<>();
 	    private List<Lamp> lamps = new ArrayList<>();
 	    public Room(String roomName, int square, int windowNum) {
 	    	this.roomName = roomName;
@@ -18,11 +18,11 @@ public class Room {
 	        this.windowNum = windowNum;
 	    }
 
-	    public void add(Furniture furniture) {
+	    public void add(Chair chair) {
 
-	    		if(isSpaceUsageTooMuch(furniture.furnitureSquare())==true){
+	    		if(isSpaceUsageTooMuch(chair.furnitureSquare())==true){
 					//System.out.println("------" + isSpaceUsageTooMuch(furnitures));
-					furnitures.add(furniture);
+					furnitures.add(chair);
 				} else {
 					try {
 						throw new SpaceUsageTooMuchException("Слишком мало свободного пространства!");
@@ -46,6 +46,20 @@ public class Room {
 				}
 			}
 	    }
+
+
+	public void add(Table table) {
+		if(isSpaceUsageTooMuch(table.furnitureSquare())==true){
+			//System.out.println("------" + isSpaceUsageTooMuch(furnitures));
+			furnitures.add(table);
+		} else {
+			try {
+				throw new SpaceUsageTooMuchException("Слишком мало свободного пространства!");
+			} catch (SpaceUsageTooMuchException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 	    
 	    public String getRoomName() {
 	        return roomName;
@@ -71,11 +85,11 @@ public class Room {
 	        this.windowNum = windowNum;
 	    }
 
-	    public List<Furniture> getFurnitures() {
+	    public List<Furnitures> getFurnitures() {
 	        return furnitures;
 	    }
 
-	    public void setFurnitures(List<Furniture> furnitures) {
+	    public void setFurnitures(List<Furnitures> furnitures) {
 	        this.furnitures = furnitures;
 	    }
 
@@ -98,10 +112,11 @@ public class Room {
 		}
 
 		public int getOccupiedSpace(){
-			List<Furniture> furnitures = getFurnitures();
+			List<Furnitures> furnitures = getFurnitures();
 			int totalSquare=0;
-			for (Furniture f:furnitures) {
+			for (Furnitures f:furnitures) {
 				totalSquare+=f.furnitureSquare();
+
 				//System.out.println("---" + totalSquare);
 			}
 			//System.out.println("---" + totalSquare);
@@ -109,7 +124,7 @@ public class Room {
 
 		}
 
-		public int getFreeSpace(){
+		private int getFreeSpace(){
 	    	int notFree = getOccupiedSpace();
 	    	int freeSpace = 0;
 			int roomSquare = getSquare();
@@ -117,7 +132,7 @@ public class Room {
 			return freeSpace;
 		}
 
-		public int freeSpacePercent() {
+		private int freeSpacePercent() {
 			int notFree = getOccupiedSpace();
 			int freeSpace = getFreeSpace();
 			int roomSquare = getSquare();
@@ -126,14 +141,14 @@ public class Room {
 			return freeSpacePercent;
 		}
 
-		public String  getFurnituresDesc(){
-			List<Furniture>  furnitures = getFurnitures();
+		private String  getFurnituresDesc(){
+			List<Furnitures>  furnitures = getFurnitures();
 			if(!furnitures.isEmpty()) {
 				List<String> l = new ArrayList<>();
 				String name = "";
 				int sq = 0;
 				String stroka = "";
-				for (Furniture f : furnitures) {
+				for (Furnitures f : furnitures) {
 					name = f.furnitureName();
 					sq = f.furnitureSquare();
 					stroka = name + " (площадь " + sq + "м^2)";
@@ -155,7 +170,7 @@ public class Room {
 			}
 		}
 
-	public boolean isSpaceUsageTooMuch(int square){
+	private boolean isSpaceUsageTooMuch(int square){
 		int totalSquare=getOccupiedSpace() + square;
 		int roomSquare = getSquare();
 		//System.out.println("room sqaure " + roomSquare);
@@ -169,7 +184,7 @@ public class Room {
 		return false;
 	}
 
-	public boolean isIlluminanceTooMuch(int light){
+	private boolean isIlluminanceTooMuch(int light){
 		//lamps = getLamps();
 		int totalLight = getTotalLightOfLamps() + light;
 		//System.out.println("---" + totalLight);
@@ -189,5 +204,6 @@ public class Room {
 					+ getFreeSpace() + " м^2 или " + freeSpacePercent() + " % площади)" +
 					"\n" +  getFurnituresDesc()  ;
 	}
+
 
 }

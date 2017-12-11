@@ -10,8 +10,8 @@ public class Test {
 
         building.addRoom(room1);
         building.addRoom(room2);
-        building.getRoom("Комната 1").add(new Furniture("Стол письменный",50));
-        building.getRoom("Комната 1").add(new Furniture("Кресло мягкое и пушистое",1));
+        building.getRoom("Комната 1").add(new Table("Стол письменный",50));
+        building.getRoom("Комната 1").add(new Chair("Кресло мягкое и пушистое",1));
         building.getRoom("Комната 1").add(new Lamp("Лампочка",150));
         building.getRoom("Комната 1").add(new Lamp("Лампочка",250));
 
