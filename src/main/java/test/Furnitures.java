@@ -2,6 +2,8 @@ package test;
 
 public interface Furnitures {
 
+
+
     public int furnitureSquare();
 
     public String furnitureName();

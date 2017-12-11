@@ -28,7 +28,9 @@ public class Room {
 						throw new SpaceUsageTooMuchException("Слишком мало свободного пространства!");
 					} catch (SpaceUsageTooMuchException e) {
 						e.printStackTrace();
-					}
+					}catch (NullPointerException e){
+				System.out.println("Нельзя добавлять мебель в несуществующую комнату");
+			}
 				}
 
 	    }
@@ -43,20 +45,24 @@ public class Room {
 					throw new IlluminanceTooMuchException("Освещение превышает максимум!");
 				} catch (IlluminanceTooMuchException e) {
 					e.printStackTrace();
-				}
+				}catch (NullPointerException e){
+				System.out.println("Нельзя добавлять лампочку в несуществующую комнату");
+			}
 			}
 	    }
 
 
 	public void add(Table table) {
 		if(isSpaceUsageTooMuch(table.furnitureSquare())==true){
-			//System.out.println("------" + isSpaceUsageTooMuch(furnitures));
+			//System.out.println("------" + isSpaceUsageTooMuch(50));
 			furnitures.add(table);
 		} else {
 			try {
 				throw new SpaceUsageTooMuchException("Слишком мало свободного пространства!");
 			} catch (SpaceUsageTooMuchException e) {
 				e.printStackTrace();
+			}catch (NullPointerException e){
+				System.out.println("Нельзя добавлять мебель в несуществующую комнату");
 			}
 		}
 	}
@@ -137,7 +143,11 @@ public class Room {
 			int freeSpace = getFreeSpace();
 			int roomSquare = getSquare();
 			int freeSpacePercent = 0;
-			freeSpacePercent = (100 - ((100*notFree)/roomSquare));
+			try {
+				freeSpacePercent = (100 - ((100 * notFree) / roomSquare));
+			}catch (ArithmeticException e){
+				System.out.println("Площадь комнаты не может быть равна 0");
+			}
 			return freeSpacePercent;
 		}
 
@@ -209,13 +219,18 @@ public class Room {
 		int roomSquare = getSquare();
 		//System.out.println("room sqaure " + roomSquare);
 		//System.out.println("total square " + totalSquare);
-		int x = (100*totalSquare)/roomSquare;
-		//System.out.println("x = " + x);
-		if(x< MAXSQUAREPERCENT){
-			//System.out.println("***" + (x< MAXSQUAREPERCENT));
-			return true;
+		try {
+			int x = (100 * totalSquare) / roomSquare;
+			//System.out.println("x = " + x);
+			if (x < MAXSQUAREPERCENT) {
+				//System.out.println("***" + (x< MAXSQUAREPERCENT));
+				return true;
+			}
+		}catch (ArithmeticException e){
+			System.out.println("Площадь комнаты не может быть равна 0");
 		}
-		return false;
+			return false;
+
 	}
 
 	private boolean isIlluminanceTooMuch(int light){
