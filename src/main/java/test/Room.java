@@ -141,6 +141,40 @@ public class Room {
 			return freeSpacePercent;
 		}
 
+		private String getLampsDesc(){
+	    	List<Lamp> lamps = getLamps();
+			StringBuilder out = new StringBuilder();
+			if(!lamps.isEmpty()) {
+			List<Integer> list = new ArrayList<>();
+			int sq = 0;
+			//String stroka = "";
+			for (Lamp l : lamps) {
+				sq = l.getLampLight();
+				//System.out.println("-----" + name);
+				list.add(sq);
+
+			}
+			out.append(", лампочки ");
+			for (Object o : list) {
+				out.append(o.toString() + "лк");
+				int index = list.indexOf(o);
+				if (index == (list.size() - 1)) {
+					out.append(")");
+
+				} else {
+					out.append(" и ");
+				}
+			}
+			}else{
+				out.append(")");
+				}
+
+
+
+			//System.out.println("-----" + name);
+			return out.toString();
+		}
+
 		private String  getFurnituresDesc(){
 			List<Furnitures>  furnitures = getFurnitures();
 			if(!furnitures.isEmpty()) {
@@ -198,8 +232,7 @@ public class Room {
 	@Override
 	public String toString(){
 	    	return getRoomName() + " " +
-					"\n" + "Освещённость = " + (getTotalLightOfLamps()+ (getWindowNum()*WINDOWLIGHT)) + "(" + getWindowNum() + " окна по 700 лк, лампочки "
-					+ getTotalLightOfLamps() + "лк)" +
+					"\n" + "Освещённость = " + (getTotalLightOfLamps()+ (getWindowNum()*WINDOWLIGHT)) + "(" + getWindowNum() + " окна по 700 лк " + getLampsDesc() +
 					"\n" + "Площадь = " + getSquare() + " м^2 (занято " + getOccupiedSpace() + " м^2, гарантированно свободно " +
 					+ getFreeSpace() + " м^2 или " + freeSpacePercent() + " % площади)" +
 					"\n" +  getFurnituresDesc()  ;
